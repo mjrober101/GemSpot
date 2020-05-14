@@ -1,0 +1,14 @@
+The pdbforpepz.py script was writting with python 2.7 to automate many of the tasks involved in preparing a JAWS calculation with William Jorgensen's MCPRO software. Provide in the pdbtopepz.py script the path to your chopped pdb of interest (this was specifically written for pdbs from the GemSpot software but I have had some success with others), and ensure that your environmental variables for the BOSSdir and MCPROdir are set. The script will then:
+
+1) Renumber residues starting from 1
+2) Insert TER records in between breaks in the protein chain and store where the occur
+3) Prepare an additional ligand PDB file and in both files change the ligand atom names to a specific format needed for BOSS
+4) Write out input files for pepz, software written to convert pdbs to zmatrices; this will include the records for where chain breaks occur
+5) Write out a shell script with all of the commands that need to be executed in sequence
+
+The shell script can be grouped into two sets of functions; those for preparing the ligand zmatrix and those for preparing the protein zmatrix. It can be run fully automatically after chmod u+x, however there is some value in running the commands seperately and ensuring the output of each is correct.
+***WARNING***: This script assumes a ligand with no net charge; if your ligand is a cation or anion, please edit the xPDBZ lines in the allcommands.sh file to use the appropriate scripts from BOSS (xPDBZ+, xPDBZ- for single anions and cations, ect.)
+
+The zmattojaws.py will read in your zmatrices from the pdbtopepz.py script and write out input files for JAWS. Please see the JAWS manual for more details.
+
+Please report any bugs!  
